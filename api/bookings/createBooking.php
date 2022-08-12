@@ -7,6 +7,7 @@
 
     include_once '../../config/Database.php';
     include_once '../../models/Booking.php';
+    include_once '../../models/Car.php';
 
     $database = new Database();
     $db = $database->connect();
@@ -22,7 +23,10 @@
     $Booking->numberOfDays = $data->numberOfDays;
     $Booking->startDate = $data->startDate;
 
-    if($Booking->createBooking()) {
+    // to unavail the car
+    $car = new Car($db);
+
+    if($Booking->createBooking() && $car->unavailCar($data->carId)) {
         echo json_encode(
             array('message' => 'Booking Created!')
         );
