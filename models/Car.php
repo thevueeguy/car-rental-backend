@@ -118,7 +118,7 @@
         }
         
         // unavail car
-        public function unavailCar($car_id) {
+        public function unavailCar() {
             // Create query
             $query = 'UPDATE ' . 
                     $this->table . '
@@ -131,10 +131,10 @@
             $stmt = $this->conn->prepare($query);
 
             // Clean data
-            $this->id = htmlspecialchars(strip_tags($car_id));
+            $this->id = htmlspecialchars(strip_tags($this->id));
 
             // Bind data
-            $stmt->bindParam(':id', $car_id);
+            $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':isAvailable', 0);
 
             // Execute query
