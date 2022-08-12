@@ -116,6 +116,35 @@
 
             return false;
         }
+        
+        // unavail car
+        public function unavailCar($car_id) {
+            // Create query
+            $query = 'UPDATE ' . 
+                    $this->table . '
+                SET
+                    isAvailable = :isAvailable
+                WHERE 
+                    id = :id';
+
+            // Prepare statement
+            $stmt = $this->conn->prepare($query);
+
+            // Clean data
+            $this->id = htmlspecialchars(strip_tags($car_id));
+
+            // Bind data
+            $stmt->bindParam(':id', $car_id);
+            $stmt->bindParam(':isAvailable', 0);
+
+            // Execute query
+            if($stmt->execute()){
+                return true;
+            }
+
+            printf('Error: %s.\n', $stmt->error("message"));
+            return false;
+        }
 
         // Update post
         public function updateCar() {
