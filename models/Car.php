@@ -132,10 +132,12 @@
 
             // Clean data
             $this->id = htmlspecialchars(strip_tags($this->id));
+            $this->isAvailable = htmlspecialchars(strip_tags($this->isAvailable));
 
+        
             // Bind data
             $stmt->bindParam(':id', $this->id);
-            $stmt->bindParam(':isAvailable', 0);
+            $stmt->bindParam(':isAvailable', $this->isAvailable);
 
             // Execute query
             if($stmt->execute()){
