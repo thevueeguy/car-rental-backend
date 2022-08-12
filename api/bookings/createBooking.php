@@ -7,14 +7,12 @@
 
     include_once '../../config/Database.php';
     include_once '../../models/Booking.php';
-    include_once '../../models/Car.php';
 
     $database = new Database();
     $db = $database->connect();
 
     // instantiate Booking object
     $Booking = new Booking($db);
-    $car = new Car($db);
 
     // Get raw posted data
     $data = json_decode(file_get_contents("php://input"));
@@ -23,10 +21,8 @@
     $Booking->carId = $data->carId;
     $Booking->numberOfDays = $data->numberOfDays;
     $Booking->startDate = $data->startDate;
-    $car->id = $data->carId;
 
-
-    if($Booking->createBooking() && $car->unavailCar()) {
+    if($Booking->createBooking()) {
         echo json_encode(
             array('message' => 'Booking Created!')
         );
