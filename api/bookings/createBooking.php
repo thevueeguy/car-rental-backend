@@ -30,7 +30,7 @@
     if($Booking->createBooking()) {
         if($car->unavailCar()){
             echo json_encode(
-                array('message' => 'working Created!')
+                array('message' => 'Booking created refresh to see the results!')
             );
         }
     } else {
